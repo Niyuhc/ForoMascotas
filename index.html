@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Mascotas - Halloween</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .posts {
+            margin-bottom: 20px;
+        }
+        .post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .new-post {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 300px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Foro de Mascotas 🎃</h1>
+            <p>¡Comparte tus experiencias y tips para el cuidado de tus mascotas!</p>
+        </header>
+        <main>
+            <section class="posts" id="post-list">
+                <article>
+                    <h2>Tema 1: Alimentación de Mascotas</h2>
+                    <p>¿Qué tipo de comida le das a tu mascota?</p>
+                    <footer>Publicado por Juan</footer>
+                </article>
+                <article>
+                    <h2>Tema 2: Ejercicio y Salud</h2>
+                    <p>¿Cuánto ejercicio necesita tu perro?</p>
+                    <footer>Publicado por Pedro</footer>
+                </article>
+            </section>
+
+            <section class="new-post">
+                <h2>Agregar una nueva publicación</h2>
+                <form id="message-form" onsubmit="return publishPost()">
+                    <label for="title">Título:</label>
+                    <input type="text" id="title" required>
+                    <label for="content">Contenido:</label>
+                    <textarea id="content" rows="4" required></textarea>
+                    <label for="imageInput">Seleccionar imagen:</label>
+                    <input type="file" id="imageInput" accept="image/*">
+                    <button type="submit">Publicar</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function publishPost() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const imageInput = document.getElementById('imageInput').files[0];
+            const postList = document.getElementById('post-list');
+
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post';
+
+            const titleNode = document.createElement('h2');
+            titleNode.textContent = title;
+            postDiv.appendChild(titleNode);
+
+            const contentNode = document.createElement('p');
+            contentNode.textContent = content;
+            postDiv.appendChild(contentNode);
+
+            if (imageInput) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(imageInput);
+                postDiv.appendChild(img);
+            }
+
+            const footer = document.createElement('footer');
+            footer.textContent = 'Publicado por tú';
+            postDiv.appendChild(footer);
+
+            postList.appendChild(postDiv);
+
+            // Limpiar los campos
+            document.getElementById('message-form').reset();
+
+            return false; // Evitar el envío del formulario
+        }
+    </script>
+</body>
+</html>
